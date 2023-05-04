@@ -1,0 +1,24 @@
+// Define the generator used to generate Prisma Client
+generator client {
+  provider = "prisma-client-js"  // Prisma Client JS is the only available generator currently
+}
+
+// Define the database source where the data will be stored
+datasource db {
+  provider = "mysql"  // The database provider used to connect to the database
+  url      = env("DATABASE_URL")  // The environment variable containing the connection URL to the database
+  relationMode =  "prisma"  // The Prisma Client will use Prisma's relation engine
+}
+
+// Define the Post model with its fields and attributes
+model Post {
+  id String @id @default(cuid())  // The ID field of the Post model is a unique string, which is generated automatically using the cuid function
+  createdAt DateTime @default(now())  // The createdAt field is a date-time field with a default value of the current timestamp
+  updatedAt DateTime @updatedAt  // The updatedAt field is a date-time field that will automatically update itself when a record is updated
+  title String  // The title field is a string field
+  category String  // The category field is a string field
+  content String @db.Text  // The content field is a string field that will be stored in the database as TEXT data type
+  author String  // The author field is a string field
+  image String  // The image field is a string field
+  snippet String @db.Text  // The snippet field is a string field that will be stored in the database as TEXT data type
+}
